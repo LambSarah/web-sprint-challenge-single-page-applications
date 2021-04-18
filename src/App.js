@@ -1,10 +1,15 @@
 import React from 'react';
+import './App.css';
+import Home from './components/Home.js';
+import { Route, Switch, Link } from 'react-router-dom';
+import OrderPizzaForm from './components/OrderPizzaForm';
 
 const App = () => {
   return (
-    <>
-      <h1>Lambda Eats crap</h1>
-    </>
+    <Switch>
+      <Route exact path='/' component={Home} />
+      <Route path='/pizza' component={OrderPizzaForm} />
+    </Switch>
   );
 };
 export default App;
