@@ -62,7 +62,9 @@ const Home = () => {
               className='col-sm-12 col-md-6 offset-md-3'
               color='danger'
               size='lg'>
-              <Link to='/pizza'>Pizza?</Link>
+              <Link name='pizzaButton' to='/pizza'>
+                Pizza?
+              </Link>
             </Button>
           </p>
         </Jumbotron>

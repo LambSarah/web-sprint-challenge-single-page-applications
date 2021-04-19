@@ -148,7 +148,7 @@ const OrderPizzaForm = () => {
       </NavbarDiv>
 
       <div className='formWrapper'>
-        <Form>
+        <Form name='pizzaForm'>
           <h2>Build Your Own Pizza</h2>
 
           <FormGroup>
@@ -247,25 +247,29 @@ const OrderPizzaForm = () => {
             <div name='toppings' className='col-sm-6 .order-sm-2 .offset-sm-1'>
               <FormGroup check inline row>
                 <Label check>
-                  <Input type='checkbox' onChange={handleChange} />
+                  <Input
+                    name='pepperoni'
+                    type='checkbox'
+                    onChange={handleChange}
+                  />
                   Pepperoni
                 </Label>
               </FormGroup>
               <FormGroup check inline>
                 <Label check>
-                  <Input type='checkbox' />
+                  <Input name='beef' type='checkbox' />
                   Beef
                 </Label>
               </FormGroup>
               <FormGroup check inline>
                 <Label check>
-                  <Input type='checkbox' />
+                  <Input name='canadianBacon' type='checkbox' />
                   Canadian Bacon
                 </Label>
               </FormGroup>
               <FormGroup check inline>
                 <Label check>
-                  <Input type='checkbox' />
+                  <Input name='grilledChicken' type='checkbox' />
                   Grilled Chicken
                 </Label>
               </FormGroup>
@@ -335,7 +339,10 @@ const OrderPizzaForm = () => {
               </div>
               <FormGroup>
                 <Label>Add to Order?</Label>
-                <Button onClick={submitOrder} disabled={disabled}>
+                <Button
+                  name='submitButton'
+                  onClick={submitOrder}
+                  disabled={disabled}>
                   Submit
                 </Button>
               </FormGroup>

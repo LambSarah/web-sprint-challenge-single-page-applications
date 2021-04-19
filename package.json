@@ -8,7 +8,6 @@
     "@testing-library/user-event": "^12.1.1",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
-    "cypress": "^7.1.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^16.13.1",
@@ -38,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^7.1.0"
   }
 }
