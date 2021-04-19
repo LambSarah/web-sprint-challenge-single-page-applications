@@ -24,12 +24,29 @@ describe('Add Name Test', function () {
   });
 });
 
+describe('Select Size Test', function () {
+  it('Select pizza size', function () {
+    cy.get('[name=size]').should('have.value', 'Select');
+    cy.get('.size').select('Small-8" (6 slices)');
+    cy.get('.size').should('have.value', 'small');
+  });
+});
+
+describe('Sauce Test', function () {
+  it('Selects a pizza Sauce', function () {
+    cy.get('[value="marinara"]').check().should('be.checked');
+  });
+});
 describe('Select Multiple Toppings Test', function () {
   it('Selects multiple pizza toppings', function () {
-    cy.get('[name=pepperoni]')
-      .check()
-      .then(cy.get('[name=beef]').check().then(cy.get('[name=onions]').check()))
-      .invoke('val')
-      .should('deep.equal', ['pepperoni', 'beef', 'onions']);
+    cy.get('[name=pepperoni]').check().should('be.checked');
+    cy.get('[name=beef').check().should('be.checked');
+    cy.get('[name=grilledChicken]').check().should('be.checked');
+  });
+});
+
+describe('Submit Form Test', function () {
+  it('submits pizza order form', function () {
+    cy.get('Button').click({ force: true });
   });
 });

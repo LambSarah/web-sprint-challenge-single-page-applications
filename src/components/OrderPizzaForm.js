@@ -17,11 +17,13 @@ import styled from 'styled-components';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+//Styles for nav items
 const NavItemDiv = styled.p({
   padding: '5px',
   margin: '10px',
 });
 
+//Styles for nav bar
 const NavbarDiv = styled.div({
   background: 'smoke',
   textAlign: 'center',
@@ -31,11 +33,15 @@ const NavbarDiv = styled.div({
   padding: '20px',
 });
 
+// Render order form
 const OrderPizzaForm = () => {
+  // assists in validation check
   const firstRender = useRef(true);
 
+  // State for submit button
   const [disabled, setDisabled] = useState(true);
 
+  // State for order form
   const [pizzaForm, setPizzaForm] = useState({
     nameInput: '',
     size: '',
@@ -54,6 +60,7 @@ const OrderPizzaForm = () => {
     quantity: '',
   });
 
+  // form schema outlining shape of form
   const formSchema = Yup.object().shape({
     nameInput: Yup.string()
       .required('Must include Name for order.')
@@ -64,33 +71,58 @@ const OrderPizzaForm = () => {
     sauce: Yup.string()
       .oneOf(['marinara', 'alfredo', 'bbq', 'ranch'])
       .required('Must choose a sauce.'),
+    pepperoni: Yup.boolean(),
+    beef: Yup.boolean(),
+    canadianBacon: Yup.boolean(),
+    italianSausage: Yup.boolean(),
+    grilledChicken: Yup.boolean(),
+    extraCheese: Yup.boolean(),
+    onions: Yup.boolean(),
+    bellpeppers: Yup.boolean(),
+    blackOlives: Yup.boolean(),
+    pineapple: Yup.boolean(),
+    specRequests: Yup.string().notRequired,
+    quantity: Yup.number().required('Please select quantity.'),
   });
 
+  // state for holding validation errors
   const [errors, setErrors] = useState({
     name: '',
     size: '',
   });
 
+  // Check form validity
   useEffect(() => {
+    // doesn't run on first render
     if (firstRender.current) {
+      //runs any other re-render
       firstRender.current = false;
       return;
     }
-    if (formSchema.isValid(pizzaForm)) {
-      setDisabled(false);
-    } else {
-      setDisabled(true);
-    }
-  }, [formSchema, pizzaForm]);
 
+    //checks for state of errors to enable/disable submit button
+    const formValidation = (errors) => {
+      // if there are no errors, disable should be set to false
+      if (errors.length === 0) {
+        return false;
+      } else {
+        // if there are errors, disable should be set to true
+        return true;
+      }
+    };
+    setDisabled(formValidation(errors));
+  }, [errors]);
+
+  // change handler
   const handleChange = (event) => {
-    // eslint-disable-next-line no-unused-vars
     const { name, type, value, checked } = event.target;
     const updatedInfo = type === 'checkbox' ? checked : value;
     setPizzaForm({ ...pizzaForm, [name]: updatedInfo });
+    // extract data for yup to validate
     Yup.reach(formSchema, name)
       .validate(value)
       .then((valid) => {
+        // if invalid, set errors
         setErrors({
           ...errors,
           [name]: '',
@@ -102,19 +134,25 @@ const OrderPizzaForm = () => {
           [name]: err.errors[0],
         });
       });
+    //set pizza form state after validity check
     setPizzaForm({
       ...pizzaForm,
       [name]: value,
     });
   };
 
+  // state for post call
   const [postOrder, setPostOrder] = useState('');
 
+  // submit handler to post order
   const submitOrder = (e) => {
+    //prevent re-render on submit
     e.preventDefault();
     console.log('submitted!');
+    //make post call
     axios
       .post('https://reqers.in/api/users', pizzaForm)
+      //set post order state to post call response
       .then((res) => {
         setPostOrder(res.data);
         console.log('success', res);
@@ -168,6 +206,7 @@ const OrderPizzaForm = () => {
             </Label>
             <Col sm={8}>
               <Input
+                className='size'
                 type='select'
                 name='size'
                 id='size'
@@ -183,7 +222,7 @@ const OrderPizzaForm = () => {
           <hr />
           <FormGroup tag='fieldset' row>
             <Col sm={1}></Col>
-            <label className='col-form-label col-sm-2'>
+            <label className='sauce col-form-label col-sm-2'>
               Choose Your Sauce:
             </label>
             <Col lg={8}>
@@ -250,6 +289,7 @@ const OrderPizzaForm = () => {
                   <Input
                     name='pepperoni'
                     type='checkbox'
+                    value='true'
                     onChange={handleChange}
                   />
                   Pepperoni
@@ -257,19 +297,34 @@ const OrderPizzaForm = () => {
               </FormGroup>
               <FormGroup check inline>
                 <Label check>
-                  <Input name='beef' type='checkbox' />
+                  <Input
+                    name='beef'
+                    type='checkbox'
+                    value='beef'
+                    onChange={handleChange}
+                  />
                   Beef
                 </Label>
               </FormGroup>
               <FormGroup check inline>
                 <Label check>
-                  <Input name='canadianBacon' type='checkbox' />
+                  <Input
+                    name='canadianBacon'
+                    type='checkbox'
+                    value='canadianBacon'
+                    onChange={handleChange}
+                  />
                   Canadian Bacon
                 </Label>
               </FormGroup>
               <FormGroup check inline>
                 <Label check>
-                  <Input name='grilledChicken' type='checkbox' />
+                  <Input
+                    name='grilledChicken'
+                    type='checkbox'
+                    value='grilledChicken'
+                    onChange={handleChange}
+                  />
                   Grilled Chicken
                 </Label>
               </FormGroup>
@@ -288,7 +343,7 @@ const OrderPizzaForm = () => {
 
               <FormGroup check inline>
                 <Label check>
-                  <Input type='checkbox' />
+                  <Input name='onions' type='checkbox' />
                   Onions
                 </Label>
               </FormGroup>
@@ -342,7 +397,8 @@ const OrderPizzaForm = () => {
                 <Button
                   name='submitButton'
                   onClick={submitOrder}
-                  disabled={disabled}>
+                  disabled={disabled}
+                  force='true'>
                   Submit
                 </Button>
               </FormGroup>

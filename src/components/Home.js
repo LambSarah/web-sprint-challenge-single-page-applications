@@ -17,6 +17,7 @@ import {
   CardText,
 } from 'reactstrap';
 
+// Styles for navbar
 const NavbarDiv = styled.div({
   background: 'smoke',
   textAlign: 'center',
@@ -24,20 +25,24 @@ const NavbarDiv = styled.div({
   fontFamily: 'Sigmar One',
 });
 
+// Styles for Jumbotron
 const JumboH1Div = styled.h1({
   textAlign: 'center',
   fontFamily: 'Sigmar One',
 });
 
+// Rendering the Home Page
 const Home = () => {
   return (
     <>
+      {/* Page Title*/}
       <NavbarDiv className='navbar'>
         <NavbarText>
           <h1> Lambda Eats </h1>
         </NavbarText>
 
-        <div className='Home'>
+        {/*Navigation*/}
+        <div>
           <Navbar className='ml-auto' color='dark' dark expand='md'>
             <Router>
               <Nav className='ml-auto' navbar>
@@ -51,6 +56,8 @@ const Home = () => {
           </Navbar>
         </div>
       </NavbarDiv>
+
+      {/* Jumbotron displaying pizza button*/}
       <div>
         <Jumbotron fluid>
           <JumboH1Div className='display-3'>
@@ -70,6 +77,7 @@ const Home = () => {
         </Jumbotron>
       </div>
 
+      {/* Cards for other restaurants to order from*/}
       <div className='RestaurantCardsDiv'>
         <h3>Food Delivery in Gotham City</h3>
         <CardGroup>
