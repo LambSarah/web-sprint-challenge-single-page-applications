@@ -85,7 +85,7 @@ const Home = () => {
             <CardImg
               top
               width='100%'
-              src='./Assets/mcdonalds.svg'
+              src={require('./Assets/mcdonalds.jpg')}
               alt='McDonalds logo'
             />
             <Card body className='text-center'>
@@ -100,7 +100,12 @@ const Home = () => {
             </Card>
           </Card>
           <Card body className='text-center'>
-            <CardImg top width='100%' src='#' alt='sweetgreen logo' />
+            <CardImg
+              top
+              width='100%'
+              src={require('./Assets/sweetgreen.png')}
+              alt='sweetgreen logo'
+            />
             <Card body className='text-center'>
               <CardTitle tag='h4'>sweetgreen</CardTitle>
               <CardSubtitle tag='h5'>$ - Healthy - Salads</CardSubtitle>
@@ -111,14 +116,21 @@ const Home = () => {
             </Card>
           </Card>
           <Card body className='text-center'>
-            <CardImg top width='100%' src='#' alt='sweetgreen logo' />
+            <CardImg
+              top
+              width='100%'
+              src={require('./Assets/starbucks.png')}
+              alt='Starbucks logo'
+            />
             <Card body className='text-center'>
-              <CardTitle tag='h4'>sweetgreen</CardTitle>
-              <CardSubtitle tag='h5'>$ - Healthy - Salads</CardSubtitle>
+              <CardTitle tag='h4'>Starbucks</CardTitle>
+              <CardSubtitle tag='h5'>
+                $ - Cafe - Coffee & Tea - Breakfast & Brunch
+              </CardSubtitle>
               <CardText>
-                <Button className='m-2'>30-45 Min</Button>
+                <Button className='m-2'>10-20 Min</Button>
                 <Button className='m-2'>
-                  $4.99 Delivery{' '}
+                  $3.99 Delivery{' '}
                   <Route path='/pizza' component={OrderPizzaForm} />
                 </Button>
               </CardText>
